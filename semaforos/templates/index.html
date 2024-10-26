@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Semáforos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Gestión de Semáforos</h1>
+    <div class="traffic-lights-container">
+        {% for light in lights %}
+        <div class="traffic-light">
+            <h2>{{ light.name }}</h2>
+            <div class="lights">
+                <form action="{{ url_for('update', light_id=light.id, status='red') }}" method="post">
+                    <button type="submit" class="light red {% if light.status == 'red' %}active{% endif %}"></button>
+                </form>
+                <form action="{{ url_for('update', light_id=light.id, status='yellow') }}" method="post">
+                    <button type="submit" class="light yellow {% if light.status == 'yellow' %}active{% endif %}"></button>
+                </form>
+                <form action="{{ url_for('update', light_id=light.id, status='green') }}" method="post">
+                    <button type="submit" class="light green {% if light.status == 'green' %}active{% endif %}"></button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

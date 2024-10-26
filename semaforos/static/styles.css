@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2{
+    color: white;
+}
+
+.traffic-lights-container {
+    display: flex;
+    gap: 20px;
+}
+
+.traffic-light {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lights {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.light {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.red {
+    background-color: gray;
+}
+
+.yellow {
+    background-color: gray;
+}
+
+.green {
+    background-color: gray;
+}
+
+.red.active {
+    background-color: red;
+}
+
+.yellow.active {
+    background-color: yellow;
+}
+
+.green.active {
+    background-color: green;
+}

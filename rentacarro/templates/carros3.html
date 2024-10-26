@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="text-4xl font-extrabold dark:text-white">Bàsic</h2>
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    USUARI
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Carro
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Dia
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Jane Doe
+                </th>
+                <td class="px-6 py-4">
+                    Western
+                </td>
+                <td class="px-6 py-4">
+                    04-12-2023
+                </td>
+            </tr>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Trotaire Aficionat
+                </th>
+                <td class="px-6 py-4">
+                    Deportiu
+                </td>
+                <td class="px-6 py-4">
+                    06-12-2023
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 class="text-4xl font-extrabold dark:text-white">Avançat</h2>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    Carro
+                </th>
+                {% for date in dates %}
+                <th scope="col" class="px-6 py-3 {% if loop.index0 % 2 == 0 %} bg-gray-50 dark:bg-gray-800 {% endif %}">
+                    {{ date }}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for carro in carros %}
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    {{ carro.nom }}
+                </th>
+                {% for date in dates %}
+                <td class="px-6 py-4 {% if loop.index0 % 2 == 0 %} bg-gray-50 dark:bg-gray-800 {% endif %}">
+                    <!-- Aquí puedes añadir lógica para mostrar el usuario si está reservado en esa fecha -->
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
