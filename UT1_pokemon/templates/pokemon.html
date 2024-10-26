@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Información de {{ pokemon['name'] | capitalize }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=DM+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: 'DM Sans', sans-serif;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 500px; /* Ancho más estrecho */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* Quitar los puntos de lista en Localización */
+        .list-unstyled-location {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Información de {{ pokemon['name'] | capitalize }}</h1>
+        <div class="text-center">
+            <img src="{{ pokemon['sprites']['front_default'] }}" class="img-fluid" alt="Imagen de {{ pokemon['name'] | capitalize }}">
+        </div>
+        <table class="table table-striped mt-4">
+            <tbody>
+                <tr>
+                    <th scope="row">ID</th>
+                    <td>{{ pokemon['id'] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Altura</th>
+                    <td>{{ pokemon['height'] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Peso</th>
+                    <td>{{ pokemon['weight'] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Habilidades</th>
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            {% for ability in pokemon['abilities'] %}
+                                <li>{{ ability['ability']['name'] }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr> 
+                    <th scope="row">Localización</th>
+                    <td>
+                        <ul class="list-unstyled-location mb-0">
+                            {% for location in locations %}
+                                <li>{{ location }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
