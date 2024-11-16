@@ -1,0 +1,13 @@
+<h1 class="text-3xl font-bold">
+    Desenvolupament web en entorn servidor - Aeroport {{ codi }}
+  </h1>
+  <div class="grid grid-cols-2 gap-4">
+  <div>
+  <ul>
+    {% for a in aeroports %}
+    <li>
+        <a href="/vols/{{a['id_airport']}}"> {{a['id_airport']}} - {{a['location']}} </a>
+    </li>
+    {% endfor %}
+  </ul>
+  </div>

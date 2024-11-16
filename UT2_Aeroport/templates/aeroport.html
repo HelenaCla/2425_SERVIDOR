@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Barra de navegación -->
+  <header class="bg-gray-800 p-4">
+    <nav class="flex justify-center">
+      <ul class="flex space-x-4 text-white">
+        {% for a in aeroports %}
+        <li>
+          <a href="/vols/{{a['id_airport']}}" class="hover:text-gray-300">
+            {{a['id_airport']}} - {{a['location']}}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Título de la página -->
+  <h1 class="text-3xl font-bold text-center my-6">
+    Desenvolupament web en entorn servidor - Aeroport {{ codi }}
+  </h1>
+
+  <!-- Contenedor de tablas en 2 filas y 2 columnas -->
+  <div class="grid grid-cols-2 gap-6 px-6">
+    
+    <!-- Tabla de Arribades Nacionals -->
+    <div class="bg-white p-4 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">Arribades Nacionals</h2>
+      {% if arribadesNac|length>0 %}
+        <table class="table-auto w-full border border-gray-200">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="px-4 py-2 border">Flight</th>
+              <th class="px-4 py-2 border">Departure</th>
+              <th class="px-4 py-2 border">Arrival</th>
+              <th class="px-4 py-2 border">Departure Time</th>
+              <th class="px-4 py-2 border">Arrival Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for vuelo in arribadesNac %}
+            <tr>
+              <td class="px-4 py-2 border">{{ vuelo.flight_number }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_time }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_time }}</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center">
+                <form action="{{ url_for('delay_flight', flight_id=vuelo.id_flight) }}" method="post" style="display: inline;">
+                  <button type="submit" class="text-blue-500 hover:underline">Endarrerir 2 hores</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No hay datos</p>
+      {% endif %}
+    </div>
+
+    <!-- Tabla de Sortides Nacionals -->
+    <div class="bg-white p-4 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">Sortides Nacionals</h2>
+      {% if sortidesNac|length>0 %}
+        <table class="table-auto w-full border border-gray-200">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="px-4 py-2 border">Flight</th>
+              <th class="px-4 py-2 border">Departure</th>
+              <th class="px-4 py-2 border">Arrival</th>
+              <th class="px-4 py-2 border">Departure Time</th>
+              <th class="px-4 py-2 border">Arrival Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for vuelo in sortidesNac %}
+            <tr>
+              <td class="px-4 py-2 border">{{ vuelo.flight_number }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_time }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_time }}</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center">
+                <form action="{{ url_for('delay_flight', flight_id=vuelo.id_flight) }}" method="post" style="display: inline;">
+                  <button type="submit" class="text-blue-500 hover:underline">Endarrerir 2 hores</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No hay datos</p>
+      {% endif %}
+    </div>
+
+    <!-- Tabla de Sortides Internacionals -->
+    <div class="bg-white p-4 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">Sortides Internacionals</h2>
+      {% if sortidesInt|length>0 %}
+        <table class="table-auto w-full border border-gray-200">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="px-4 py-2 border">Flight</th>
+              <th class="px-4 py-2 border">Departure</th>
+              <th class="px-4 py-2 border">Arrival</th>
+              <th class="px-4 py-2 border">Departure Time</th>
+              <th class="px-4 py-2 border">Arrival Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for vuelo in sortidesInt %}
+            <tr>
+              <td class="px-4 py-2 border">{{ vuelo.flight_number }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_time }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_time }}</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center">
+                <form action="{{ url_for('delay_flight', flight_id=vuelo.id_flight) }}" method="post" style="display: inline;">
+                  <button type="submit" class="text-blue-500 hover:underline">Endarrerir 2 hores</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No hay datos</p>
+      {% endif %}
+    </div>
+
+    <!-- Tabla de Arribades Internacionals -->
+    <div class="bg-white p-4 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">Arribades Internacionals</h2>
+      {% if arribadesInt|length>0 %}
+        <table class="table-auto w-full border border-gray-200">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="px-4 py-2 border">Flight</th>
+              <th class="px-4 py-2 border">Departure</th>
+              <th class="px-4 py-2 border">Arrival</th>
+              <th class="px-4 py-2 border">Departure Time</th>
+              <th class="px-4 py-2 border">Arrival Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for vuelo in arribadesInt %}
+            <tr>
+              <td class="px-4 py-2 border">{{ vuelo.flight_number }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_airport }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.departure_time }}</td>
+              <td class="px-4 py-2 border">{{ vuelo.arrival_time }}</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center">
+                <form action="{{ url_for('delay_flight', flight_id=vuelo.id_flight) }}" method="post" style="display: inline;">
+                  <button type="submit" class="text-blue-500 hover:underline">Endarrerir 2 hores</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No hay datos</p>
+      {% endif %}
+    </div>
+
+  </div>
+</body>
+</html>
