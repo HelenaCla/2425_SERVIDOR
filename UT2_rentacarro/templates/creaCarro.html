@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Asegúrate de que Tailwind CSS está cargado -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Crear Carro</title>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto mt-12 px-6">
+        <h3 class="text-3xl font-extrabold text-gray-800 mb-6">Crear Nuevo Carro</h3>
+        
+        <form action="{{ url_for('crearCarro') }}" method="POST" class="bg-white p-8 rounded-lg shadow-xl space-y-6">
+        <div>
+            <label for="nom" class="block text-lg font-medium text-gray-700">Nombre del Carro</label>
+            <input type="text" id="nom" name="nom" class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+        <div>
+            <label for="descripcio" class="block text-lg font-medium text-gray-700">Descripción</label>
+            <input type="text" id="descripcio" name="descripcio" class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+        <div>
+            <label for="clase" class="block text-lg font-medium text-gray-700">Clase</label>
+            <select id="clase" name="clase" class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <option value="basic">Basic</option>
+                <option value="1cavall">1 Cavall</option>
+                <option value="2cavalls">2 Cavalls</option>
+            </select>
+        </div>
+    <!-- Precio del carro -->
+    <div>
+        <label for="preu" class="block text-lg font-medium text-gray-700">Precio (€)</label>
+        <input type="number" id="preu" name="preu" class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+    </div>
+    <div>
+        <label for="img" class="block text-lg font-medium text-gray-700">Imagen</label>
+        <select id="img" name="img" class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <option value="carro1.png">Carro 1</option>
+            <option value="carro2.png">Carro 2</option>
+            <option value="carro3.png">Carro 3</option>
+            <option value="carro4.png">Carro 4</option>
+        </select>
+    </div>
+    <div class="flex justify-center">
+        <button type="submit" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Crear Carro</button>
+    </div>
+    </form>
+s</div>
+
+</body>
+</html>

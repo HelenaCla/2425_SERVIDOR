@@ -1,0 +1,10 @@
+
+<h1>Alta usuari</h1>
+<form  method="POST">
+    {# This hidden_tag is a CSRF security feature. #}
+    {{ form.hidden_tag() }}
+    {{ form.usuari.label }} {{form.usuari}}
+    {% for error in form.usuari.errors %} {{ error }} {% endfor%}
+    <br>
+    {{ form.submit() }}
+</form>

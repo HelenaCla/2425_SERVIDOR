@@ -1,0 +1,19 @@
+{% extends "main.html"%}
+{% block content %}
+
+
+<div class="col-md-6">
+	<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Modificar usuario</h3>
+  </div>
+  <div class="panel-body">
+  	<p>Username:{{current_user.username}}</p>
+    <form name="modificacio" method="get" action="{{url_for('modify')}}">
+          <p>Password:<input type="password"  id="password" name="password"></p>
+    <p>Email:<input type="text"  id="email" name="email" placeholder="{{current_user.email}}"></p>     
+         <p><input class="btn btn-danger btn-sm" type="submit" value="Aceptar" name="Aceptar" > &nbsp<a class="btn btn-danger btn-sm" href="{{ url_for('welcome_user')}}" role="button">Cancelar </a></p>
+  </div>
+</div>
+</div>
+{% endblock %}

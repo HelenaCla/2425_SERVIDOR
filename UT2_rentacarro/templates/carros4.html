@@ -20,26 +20,25 @@
           style="height: 20px"
           alt="TE Logo"
           loading="lazy" />
-        <span class="font-medium dark:text-neutral-200"
-          >Desenvolupament web en entorn servidor - Pràctica 2, curs 24/25</span>
+        <span class="font-medium dark:text-neutral-200">Desenvolupament web en entorn servidor - Pràctica 2, curs 24/25</span>
       </a>
     </div>
   </div>
 </nav>
-  <ul class="flex border-b">
-    <li class="-mb-px mr-1">
-      <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Llista de Carros</a>
-    </li>
-    <li class="mr-1">
-      <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Reserva un carro</a>
-    </li>
-    <li class="mr-1">
-        <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Llista de reserves</a>
-      </li>
-    <li class="mr-1">
-        <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="#">Intranet-carros</a>
-      </li>
-  </ul>
+<ul class="flex border-b">
+  <li class="-mb-px mr-1">
+    <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold" href="{{ url_for('carros') }}">Llista de Carros</a>
+  </li>
+  <li class="mr-1">
+    <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{ url_for('carros2') }}">Reserva un carro</a>
+  </li>
+  <li class="mr-1">
+    <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{ url_for('carros3') }}">Llista de reserves</a>
+  </li>
+  <li class="-mb-px mr-1">
+    <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="{{ url_for('carros4') }}">Intranet-carros</a>
+  </li>
+</ul>
 
 
 <!-- Index Post -->
@@ -47,7 +46,7 @@
     <div class="mb-4">
       <h2 class="text-4xl font-extrabold dark:text-white">Intranet - Gestió carros</h2>
       <div class="flex justify-end">
-        <button class="px-4 py-2 rounded-md bg-sky-500 text-sky-100 hover:bg-sky-600">Nou Carro</button>
+        <a href="{{ url_for('crearCarro') }}" class="px-4 py-2 bg-green-600 text-white rounded-md inline-block"> Nou Carro </a>
       </div>
     </div>
     <div class="flex flex-col">
@@ -101,105 +100,13 @@
                   <span>{{ carro.preu }}</span>
                 </td> 
                 <td class="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </a>
-                </td>
-                <td class="text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200 ">
-                  <a href="/eliminaCarro"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-600 hover:text-red-800"
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg></a>
+                  
+                  <a href="{{ url_for('editarCarro', id=carro.id) }}" class="px-4 py-2 bg-yellow-500 text-white rounded-md">Editar</a>
+                  <a href="{{ url_for('eliminarCarro', id=carro.id) }}" class="px-4 py-2 bg-red-500 text-white rounded-md">Eliminar</a>
   
                 </td>
               </tr>
               {% endfor %}
-              <tr>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    2
-                  </div>  
-                </td>
-  
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">Western
-                  </div>
-                </td>
-  
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <p>Preparat per la conquesta de l'oest!</p>
-                </td>
-  
-                <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  <span>Bàsic</span>
-                </td>
-                <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  <span>90 €</span>
-                </td> 
-                <td class="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </a>
-                </td>
-                <td class="text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200 ">
-                  <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-600 hover:text-red-800"
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg></a>
-  
-                </td>
-              </tr>
-
-              <tr>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    3
-                  </div>  
-                </td>
-  
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900">
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nom" name="nom" type="text" placeholder="Utilitari 2px">
-                  </div>
-                </td>
-  
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="descripcio" name="descripcio" type="text" placeholder="Amb aquest carretó seràs l'enveja de les veinades">
-                </td>
-  
-                <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="clase" name="clase" >
-                    <option selected>basic</option>
-                    <option>altre</option>
-                    <option>atre</option>
-                  </select>
-                </td>
-                <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                  <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="preu" name="preu" type="text" placeholder="105">
-                </td> 
-               
-                <td class="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill="#2c2" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
-                      <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
-                    </svg>
-                  </a>
-                </td>
-                
-              </tr>
-
-
             </tbody>
           </table>
         </div>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Formulari d'Alta</title>
+</head>
+<body class="bg-gray-50">
+    <!-- Barra de navegación -->
+    <nav class="bg-blue-600 shadow-lg py-4">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <a href="#" class="flex items-center text-white text-lg font-semibold">
+                <img src="../static/logo.png" alt="Logo" class="h-8 mr-3">
+                <span>Formulari d'Alta</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Contenedor del formulario -->
+    <div class="container mx-auto mt-12 px-6">
+        <h2 class="text-3xl font-extrabold text-gray-800 mb-6">Registre d'Usuari</h2>
+        <form action="/submit" method="POST" class="bg-white p-8 rounded-lg shadow-xl space-y-6">
+            <!-- Username -->
+            <div>
+                <label for="username" class="block text-lg font-medium text-gray-700">Nom d'Usuari</label>
+                <input type="text" id="username" name="username" minlength="6" maxlength="15" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="MateuG16">
+            </div>
+
+            <!-- Nom -->
+            <div>
+                <label for="nom" class="block text-lg font-medium text-gray-700">Nom</label>
+                <input type="text" id="nom" name="nom" maxlength="50" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Mateu">
+            </div>
+
+            <!-- Llinatges -->
+            <div>
+                <label for="llinatges" class="block text-lg font-medium text-gray-700">Llinatges</label>
+                <input type="text" id="llinatges" name="llinatges" maxlength="50" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Gonzalez">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="password" class="block text-lg font-medium text-gray-700">Contrasenya</label>
+                <input type="password" id="password" name="password" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Contrasenya">
+            </div>
+
+            <!-- Password Repeat -->
+            <div>
+                <label for="password_repeat" class="block text-lg font-medium text-gray-700">Repetir Contrasenya</label>
+                <input type="password" id="password_repeat" name="password_repeat" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Repeteix la contrasenya">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-lg font-medium text-gray-700">Correu Electrònic</label>
+                <input type="email" id="email" name="email" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="correu@domini.com">
+            </div>
+
+            <!-- Telèfon -->
+            <div>
+                <label for="telefon" class="block text-lg font-medium text-gray-700">Telèfon</label>
+                <input type="text" id="telefon" name="telefon" required
+                       class="w-full mt-2 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="601 489 495">
+            </div>
+
+            <!-- Botó d'Enviar -->
+            <div class="flex justify-center">
+                <button type="submit" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+                    Enviar Formulari
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

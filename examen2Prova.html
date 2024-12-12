@@ -1,0 +1,12 @@
+#Exercici 2.3 - html
+<ul>
+    {% for usuari in usuaris %}
+        <li>
+        {% if(usuari.administrador == "SI") %} 
+            <a href="/missatgesUsuari/{{ usuari.id }}"><b>{{usuari.nom}} </b></a>
+        {%else}
+            <a href="/missatgesUsuari/{{ usuari.id }}">{{usuari.nom}}</a>
+        {%endif%}    
+        </li>
+    {% endfor %}
+<ul>
