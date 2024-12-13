@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Iniciar sesión</h2>
+
+        <!-- Mostrar mensajes flash si existen -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 p-4 text-white rounded {{ 'bg-green-500' if category == 'success' else 'bg-red-500' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form action="{{ url_for('login') }}" method="POST" class="space-y-6">
+            <!-- Campo de usuario -->
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Usuario</label>
+                <input type="text" name="username" id="username" placeholder="Tu usuario" 
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de contraseña -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input type="password" name="password" id="password" placeholder="Tu contraseña" 
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Botón de inicio de sesión -->
+            <div>
+                <button type="submit" 
+                    class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-200">
+                    Iniciar sesión
+                </button>
+            </div>
+
+            <!-- Enlace para crear un nuevo usuario -->
+            <p class="text-sm text-gray-600 text-center mt-4">
+                ¿No tienes una cuenta? 
+                <a href="{{ url_for('registro') }}" class="text-blue-500 hover:underline">
+                    Regístrate aquí
+                </a>
+            </p>
+        </form>
+    </div>
+
+</body>
+</html>

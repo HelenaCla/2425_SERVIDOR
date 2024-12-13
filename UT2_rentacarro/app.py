@@ -1,20 +1,34 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, get_flashed_messages
 from pymysql.err import IntegrityError # type: ignore
 from datetime import datetime, timedelta
-from UT2_rentacarro.validations import validate_form
+from validations import validate_form
 from database import carrosdb
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user, UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "millave"
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+class User(UserMixin):
+    def __init__(self, id, username, nom, llinatges):
+        self.id = id
+        self.username = username
+        self.nom = nom
+        self.llinatges = llinatges
+
 @app.route('/')
 @app.route('/llistacarros')
+@login_required
 def carros():
     db = carrosdb()
     carros = db.cargarCarros()
     return render_template('carros.html', carros=carros)
 
 @app.route("/Reservauncarro", methods=["GET", "POST"])
+@login_required
 def carros2():
     db = carrosdb()
     carros = db.cargarCarros()  # Load carros list to pass to the template
@@ -53,6 +67,7 @@ def carros2():
     return render_template("carros2.html", carros=carros)
 
 @app.route('/llistareservas')
+@login_required
 def carros3():
     db = carrosdb()
     # Obtener parámetros de fecha desde la URL, o usar el día de hoy como predeterminado
@@ -91,6 +106,7 @@ def carros3():
     return render_template("carros3.html", reservas=reservas_dict, reservas_detalles=reservas_detalles, start_date=start_date, end_date=end_date, dates_range=dates_range, datetime=datetime, timedelta=timedelta)
 
 @app.route('/eliminaCarro')
+@login_required
 def elimina():
     db = carrosdb()
     carros = db.cargarCarros()
@@ -100,12 +116,14 @@ def elimina():
 
 
 @app.route('/intranet-carros')
+@login_required
 def carros4():
     db = carrosdb()
     carros = db.cargarCarros()
     return render_template('carros4.html', carros=carros)
 
 @app.route('/crear-carro', methods=['GET', 'POST'])
+@login_required
 def crearCarro():
     db = carrosdb()
 
@@ -128,6 +146,7 @@ def crearCarro():
 
 
 @app.route('/editar-carro/<int:id>', methods=['GET', 'POST'])
+@login_required
 def editarCarro(id):
     db = carrosdb()
     if request.method == 'POST':
@@ -144,6 +163,7 @@ def editarCarro(id):
     return render_template('editCarros.html', carro=carro)
 
 @app.route('/eliminar-carro/<int:id>')
+@login_required
 def eliminarCarro(id):
     db = carrosdb()
     db.eliminaCarro(id)
@@ -170,5 +190,77 @@ def submit_form():
     return jsonify({"status": "success", "message": "Formulario enviado correctamente"}), 200
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    db = carrosdb()
+    usuario = db.mostraUsuariPerId(user_id)
+    if usuario:
+        return User(id=usuario['id'], username=usuario['username'], nom=usuario['nom'], llinatges=usuario['llinatges'])
+    return None
+
+from flask import render_template, redirect, url_for, flash
+from flask_login import login_user, logout_user, current_user
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        db = carrosdb()
+        usuario = db.cargarUsuarioPorUsername(username)
+        
+        if usuario and check_password_hash(usuario['password_hash'], password):
+            user = User(id=usuario['id'], username=usuario['username'], nom=usuario['nom'], llinatges=usuario['llinatges'])
+            login_user(user)
+            flash('Has iniciado sesión correctamente.', 'success')
+            return redirect(url_for('carros'))
+        else:
+            flash('Usuario o contraseña incorrectos.', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('Has cerrado sesión.', 'info')
+    return redirect(url_for('login'))
+
+from werkzeug.security import generate_password_hash
+
+@app.route('/registro', methods=['GET', 'POST'])
+def registro():
+    if request.method == 'POST':
+        username = request.form['username']
+        nom = request.form['nom']
+        llinatges = request.form['llinatges']
+        email = request.form['email']
+        telefon = request.form['telefon']
+        password = request.form['password']
+        password_repeat = request.form['password_repeat']
+        fecha_alta = datetime.now().date()
+        
+        if password != password_repeat:
+            flash('Las contraseñas no coinciden.', 'error')
+            return redirect(url_for('registro'))
+        
+        password_hash = generate_password_hash(password)
+        
+        db = carrosdb()
+        try:
+            db.crearUsuari(username, nom, llinatges, email, telefon, password_hash, fecha_alta)
+            flash('Usuario registrado con éxito. Ahora puedes iniciar sesión.', 'success')
+            return redirect(url_for('login'))
+        except IntegrityError:
+            flash('El usuario o el correo ya están registrados.', 'error')
+    
+    return render_template('registro.html')
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+

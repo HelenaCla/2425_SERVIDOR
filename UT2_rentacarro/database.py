@@ -1,5 +1,5 @@
 import pymysql.cursors
-import datetime
+
 
 class carrosdb(object):
     def conecta(self):
@@ -109,3 +109,38 @@ class carrosdb(object):
                 dies += 1
             return dies * preuDiari
         return 0
+    def crearUsuari(self, username, nom, llinatges, email, telefon, password_hash, fecha_alta):
+        """Inserta un nuevo usuario en la tabla 'usuaris'"""
+        self.conecta()
+        sql = """
+        INSERT INTO usuaris (username, nom, llinatges, email, telefon, password_hash, fecha_alta) 
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+        try:
+            self.cursor.execute(sql, (username, nom, llinatges, email, telefon, password_hash, fecha_alta))
+            self.desconecta()
+        except Exception as e:
+            print(f"Error al crear el usuario: {e}")
+            self.desconecta()
+            raise e
+
+
+    def cargarUsuarioPorUsername(self, username):
+        self.conecta()
+        sql = "SELECT * FROM usuaris WHERE username = %s"
+        self.cursor.execute(sql, (username,))
+        usuario = self.cursor.fetchone()
+        self.desconecta()
+        return usuario
+
+    def mostraUsuariPerId(self, id):
+        self.conecta()
+        sql = "SELECT * FROM usuaris WHERE id = %s"
+        self.cursor.execute(sql, (id,))
+        usuario = self.cursor.fetchone()
+        self.desconecta()
+        return usuario
+
+
+
+

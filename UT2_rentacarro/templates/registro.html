@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de usuario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Regístrate</h2>
+
+        <!-- Mostrar mensajes flash si existen -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-4 p-4 text-white rounded {{ 'bg-green-500' if category == 'success' else 'bg-red-500' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('registro') }}" method="POST" class="space-y-6">
+
+            <!-- Campo de usuario -->
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Usuario</label>
+                <input type="text" name="username" id="username" placeholder="Tu usuario"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de nombre -->
+            <div>
+                <label for="nom" class="block text-sm font-medium text-gray-700">Nombre</label>
+                <input type="text" name="nom" id="nom" placeholder="Tu nombre"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de apellidos -->
+            <div>
+                <label for="llinatges" class="block text-sm font-medium text-gray-700">Apellidos</label>
+                <input type="text" name="llinatges" id="llinatges" placeholder="Tus apellidos"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                <input type="email" name="email" id="email" placeholder="Tu correo"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de teléfono -->
+            <div>
+                <label for="telefon" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                <input type="text" name="telefon" id="telefon" placeholder="Tu teléfono"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de contraseña -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input type="password" name="password" id="password" placeholder="Tu contraseña"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Campo de repetir contraseña -->
+            <div>
+                <label for="password_repeat" class="block text-sm font-medium text-gray-700">Repite la contraseña</label>
+                <input type="password" name="password_repeat" id="password_repeat" placeholder="Repite tu contraseña"
+                    class="w-full mt-2 p-3 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Botón de registro -->
+            <div>
+                <button type="submit" 
+                    class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition duration-200">
+                    Crear cuenta
+                </button>
+            </div>
+
+            <!-- Enlace para volver al login -->
+            <p class="text-sm text-gray-600 text-center mt-4">
+                ¿Ya tienes una cuenta? 
+                <a href="{{ url_for('login') }}" class="text-blue-500 hover:underline">
+                    Inicia sesión aquí
+                </a>
+            </p>
+        </form>
+    </div>
+
+</body>
+</html>

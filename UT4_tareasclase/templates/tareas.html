@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas</title>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+
+    <!-- Formulario para añadir nuevas tareas -->
+    <form method="POST" action="/">
+        <label for="asignatura">Asignatura:</label>
+        <select name="asignatura" id="asignatura" required>
+            <option value="DWES">DWES</option>
+            <option value="DWEC">DWEC</option>
+            <option value="DAW">DAW</option>
+            <option value="DIW">DIW</option>
+            <option value="EIE">EIE</option>
+        </select>
+        <br>
+        <label for="tarea">Tarea:</label>
+        <input type="text" id="tarea" name="tarea" required>
+        <br>
+        <label for="fecha_hora">Fecha y hora:</label>
+        <input type="datetime-local" id="fecha_hora" name="fecha_hora" required>
+        <br>
+        <button type="submit">Añadir Tarea</button>
+    </form>
+
+    <hr>
+
+    <!-- Mostrar la lista de tareas -->
+    <ul>
+        {% for item in lista %}
+            <li>
+                <strong>{{ item.asignatura }}</strong>
+                <ul>
+                    {% for tarea in item.tareas %}
+                        <li>
+                            {{ tarea.tarea }} ({{ tarea.datetime }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
