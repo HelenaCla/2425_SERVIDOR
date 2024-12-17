@@ -1,22 +1,5 @@
-<!doctype html>
-<html lang="ca">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Formulari d'Alta</title>
-</head>
-<body class="bg-gray-50">
-    <!-- Barra de navegación -->
-    <nav class="bg-blue-600 shadow-lg py-4">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <a href="#" class="flex items-center text-white text-lg font-semibold">
-                <img src="../static/logo.png" alt="Logo" class="h-8 mr-3">
-                <span>Formulari d'Alta</span>
-            </a>
-        </div>
-    </nav>
-
+{%extends "navbar.html" %}
+{% block content %}
     <!-- Contenedor del formulario -->
     <div class="container mx-auto mt-12 px-6">
         <h2 class="text-3xl font-extrabold text-gray-800 mb-6">Registre d'Usuari</h2>
@@ -85,5 +68,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

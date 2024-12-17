@@ -35,15 +35,6 @@ def validate_form(data):
     if password != password_repeat:
         errors.append("Las contraseñas no coinciden.")
 
-    # Fecha de alta
-    fecha_alta = data.get('fecha_alta', '')
-    try:
-        fecha_obj = datetime.strptime(fecha_alta, '%Y-%m-%d')
-        if fecha_obj > datetime.now():
-            errors.append("La 'Fecha d'Alta' no puede ser una fecha futura.")
-    except ValueError:
-        errors.append("La 'Fecha d'Alta' debe tener un formato válido (AAAA-MM-DD).")
-
     # Email
     email = data.get('email', '').strip()
     if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):

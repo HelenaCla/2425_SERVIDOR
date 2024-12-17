@@ -1,13 +1,6 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Asegúrate de que Tailwind CSS está cargado -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Crear Carro</title>
-</head>
-<body class="bg-gray-50">
+
+{%extends "navbar.html" %}
+{% block content %}
     <div class="container mx-auto mt-12 px-6">
         <h3 class="text-3xl font-extrabold text-gray-800 mb-6">Crear Nuevo Carro</h3>
         
@@ -46,7 +39,5 @@
         <button type="submit" class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300">Crear Carro</button>
     </div>
     </form>
-s</div>
-
-</body>
-</html>
+</div>
+{% endblock %}

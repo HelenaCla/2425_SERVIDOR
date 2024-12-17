@@ -140,6 +140,19 @@ class carrosdb(object):
         usuario = self.cursor.fetchone()
         self.desconecta()
         return usuario
+    
+    def next_user_reservation(self, username):
+        self.conecta()
+        sql = """
+        SELECT iniciReserva FROM reservas
+        WHERE usuario = %s AND iniciReserva >= CURDATE()
+        ORDER BY iniciReserva ASC
+        LIMIT 1
+        """
+        self.cursor.execute(sql, (username,))
+        res = self.cursor.fetchone()
+        self.desconecta()
+        return res['iniciReserva'] if res else None
 
 
 
