@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "686fcdfb-f106-46e5-a9ca-048caeff16c0",
+		"name": "biblioteca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15065417"
+	},
+	"item": [
+		{
+			"name": "getEditorsAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/editors",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"editors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postEditors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"NOM_EDIT\":\"editor pepito\",\r\n    \"ADR_EDIT\": \"string\",\r\n    \"CP_EDIT\":\"07300\",\r\n   \"POB_EDIT\": \"string\",\r\n   \"TEL_EDIT\": \"string\",\r\n  \"FAX_EDIT\": \"string\",\r\n  \"EMAIL_EDIT\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/editors",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"editors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put EditorId",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"NOM_EDIT\":\"editor Superpepito\",\r\n    \"ADR_EDIT\": \"string\",\r\n    \"CP_EDIT\":\"07300\",\r\n   \"POB_EDIT\": \"string\",\r\n   \"TEL_EDIT\": \"string\",\r\n  \"FAX_EDIT\": \"string\",\r\n  \"EMAIL_EDIT\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/editors/788",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"editors",
+						"788"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEditorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/editors/784",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"editors",
+						"784"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEditorId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/editors/785",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"editors",
+						"785"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLlibreId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/llibres/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"llibres",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLlibreAutor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/llibres/autor/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"llibres",
+						"autor",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
