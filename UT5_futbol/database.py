@@ -11,32 +11,18 @@ def get_db_connection():
     )
     return connection
 
-def get_all_equipos():
+def get_user_by_credentials(username: str, password: str):
     conn = get_db_connection()
     try:
         with conn.cursor() as cursor:
-            cursor.execute("SELECT id, equipo FROM equipos")
-            equipos = cursor.fetchall()
-        return equipos
-    finally:
-        conn.close()
-
-def get_resultats_por_equipo(id_equip: int):
-    conn = get_db_connection()
-    try:
-        with conn.cursor() as cursor:
-            query = """
-                SELECT r.HomeTeam, e1.equipo AS HomeName,
-                       r.AwayTeam, e2.equipo AS AwayName,
-                       r.HomeGoals, r.AwayGoals
-                FROM results r
-                JOIN equipos e1 ON r.HomeTeam = e1.id
-                JOIN equipos e2 ON r.AwayTeam = e2.id
-                WHERE r.HomeTeam = %s OR r.AwayTeam = %s
-                ORDER BY r.fecha ASC
+            sql = """
+                SELECT id, username, password, code
+                FROM users
+                WHERE username = %s AND password = %s
+                LIMIT 1
             """
-            cursor.execute(query, (id_equip, id_equip))
-            return cursor.fetchall()
+            cursor.execute(sql, (username, password))
+            return cursor.fetchone()
     finally:
         conn.close()
 
@@ -72,83 +58,5 @@ def insert_resultado(jornada: int, fecha: str, home_team: int, away_team: int, h
                 away_goals
             ))
         conn.commit()
-    finally:
-        conn.close()
-
-def get_classification_query():
-    sql = """
-    SELECT 
-        e.id AS id_equipo,
-        e.equipo AS nom_equip,
-        (
-            SELECT COUNT(*) 
-            FROM results r
-            WHERE r.HomeTeam = e.id 
-               OR r.AwayTeam = e.id
-        ) AS Partits_Jugats,
-        (
-            SELECT COUNT(*)
-            FROM results r
-            WHERE (r.HomeTeam = e.id AND r.HomeGoals > r.AwayGoals)
-               OR (r.AwayTeam = e.id AND r.AwayGoals > r.HomeGoals)
-        ) AS Partits_Guanyats,
-        (
-            SELECT COUNT(*)
-            FROM results r
-            WHERE (r.HomeTeam = e.id AND r.HomeGoals = r.AwayGoals)
-               OR (r.AwayTeam = e.id AND r.AwayGoals = r.HomeGoals)
-        ) AS Partits_Empatats,
-        (
-            SELECT COUNT(*)
-            FROM results r
-            WHERE (r.HomeTeam = e.id AND r.HomeGoals < r.AwayGoals)
-               OR (r.AwayTeam = e.id AND r.AwayGoals < r.HomeGoals)
-        ) AS Partits_Perduts,
-        (
-            SELECT COALESCE(SUM(
-                CASE 
-                    WHEN r.HomeTeam = e.id THEN r.HomeGoals
-                    WHEN r.AwayTeam = e.id THEN r.AwayGoals
-                    ELSE 0
-                END
-            ), 0)
-            FROM results r
-            WHERE r.HomeTeam = e.id OR r.AwayTeam = e.id
-        ) AS Gols_a_favor,
-        (
-            SELECT COALESCE(SUM(
-                CASE
-                    WHEN r.HomeTeam = e.id THEN r.AwayGoals
-                    WHEN r.AwayTeam = e.id THEN r.HomeGoals
-                    ELSE 0
-                END
-            ), 0)
-            FROM results r
-            WHERE r.HomeTeam = e.id OR r.AwayTeam = e.id
-        ) AS Gols_en_contra,
-        (
-            3 * (
-                SELECT COUNT(*)
-                FROM results r
-                WHERE (r.HomeTeam = e.id AND r.HomeGoals > r.AwayGoals)
-                   OR (r.AwayTeam = e.id AND r.AwayGoals > r.HomeGoals)
-            )
-            +
-            1 * (
-                SELECT COUNT(*)
-                FROM results r
-                WHERE (r.HomeTeam = e.id AND r.HomeGoals = r.AwayGoals)
-                   OR (r.AwayTeam = e.id AND r.AwayGoals = r.HomeGoals)
-            )
-        ) AS Punts
-    FROM equipos e
-    ORDER BY Punts DESC, Gols_a_favor DESC
-    """
-    conn = get_db_connection()
-    try:
-        with conn.cursor() as cursor:
-            cursor.execute(sql)
-            rows = cursor.fetchall()
-        return rows
     finally:
         conn.close()
